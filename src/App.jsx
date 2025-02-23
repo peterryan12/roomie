@@ -12,6 +12,7 @@ function App() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [numRooms, setNumRooms] = useState(3);
 
+
   return (
     <Router>
       <div className="min-h-1/6 items-center">
@@ -32,7 +33,7 @@ function App() {
             
                   <ListingCard info={"Nice 2 bedroom loft in an up and coming neighborhood."} />
                   <ListingCard info={"Highrise apartment in fashionable East Egg."} />
-                  <ListingCard info={"A cardboard bungalow at eighty a month."} />
+                  <ListingCard info={"A cardboard bungalow at eighty a month."}/>
                 </>
               } 
             />
