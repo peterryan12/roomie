@@ -1,5 +1,6 @@
 import './App.css';
 import { FilterHeading } from './components/FilterHeading';
+import { ProfileOverview } from './components/ProfileOverview';
 import { Header } from './components/Header';
 import { ListingCard } from './components/ListingCard';
 import { useState } from 'react';
@@ -40,6 +41,8 @@ function App() {
            
             <Route path="/profile" element={<Profile />} />
             <Route path="/details" element={<DetailsPage listingName={"Carraway House"} />} />
+            <Route path="/overview" element={<ProfileOverview />} />
+
           </Routes>
         </div>
       </div>

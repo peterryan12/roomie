@@ -17,10 +17,14 @@ export const Profile = () => {
            <div className='flex gap-4'>  <textarea className="h-30 w-80 border shadow-lg p-3" placeholder='Update your bio. This is the best way for potential lardlords to get to know you!'/>
            <button className='mt-3'>{<Pencil size={16} />}</button></div>
           
-            <div id="info-items-container" className='flex flex-col items-end'>
+            <div id="info-items-container" className='flex flex-col items-end border bg-indigo-50 mt-10 p-5 rounded'>
             <InfoItem item={"Username"} />
             <InfoItem item={"Email"} />
             <InfoItem item={"Status"} />
+            <InfoItem item={"Hobbies"} />
+            <InfoItem item={"Favorite Fact"} />
+            <InfoItem item={"Pet Peeves"} />
+
             </div>
         </div>
     </div>

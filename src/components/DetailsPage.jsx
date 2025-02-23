@@ -1,8 +1,10 @@
 import carraway from '../assets/carraway.jpg';
 import lorem from '../assets/lorem.png';
 import carraway_2 from '../assets/carraway_2.jpg';
+import { useNavigate } from 'react-router-dom';
 
 export const DetailsPage = (props) => {
+    const navigate = useNavigate();
     return (
         <div className='m-5'>
             <h1 className="text-3xl">{props.listingName}</h1>
@@ -15,7 +17,7 @@ export const DetailsPage = (props) => {
                     </p>
                     <div className='flex gap-3'>
                     <div className='flex flex-col gap-1'>
-                    <img src={lorem} className='w-28 h-28 rounded-full self-start border-[0.5px]' />
+                    <img src={lorem} className='w-28 h-28 rounded-full self-start border-[0.5px]' onClick={() => navigate('/overview')} />
                     <p>John Cornelius Doe, 47</p>
                     </div>
                     <div className='flex flex-col gap-2'>
