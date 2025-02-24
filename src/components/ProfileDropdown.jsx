@@ -1,10 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom"
 
+
 export const ProfileDropdown = (props) => {
 
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
+   
+
    
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -31,7 +34,7 @@ export const ProfileDropdown = (props) => {
                 <li className="p-1 hover:bg-[rgb(240,240,208)]"><button >Messages</button></li>
                 <li className="p-1 hover:bg-[rgb(240,240,208)]"><button onClick={() => {
                    props.toggle();
-                   navigate('/profile')
+                   navigate('/profile', { state: { currUser: props.currUser} })
                 }} className="hover:bg-[rgb(240,240,208)]">Edit Profile</button></li>
                 <li className="p-1 hover:bg-[rgb(240,240,208)]"><button onClick={() => {
                     props.toggle();

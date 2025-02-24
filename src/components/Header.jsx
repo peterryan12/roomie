@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-export const Header = () => {
+export const Header = (props) => {
     const navigate = useNavigate();
     const [profileDropdownHidden, setProfileDropdownHidden] = useState(true);
     const toggleProfileDropdown = () => {
@@ -15,7 +15,7 @@ export const Header = () => {
             <header className="flex justify-between items-center">
                <button onClick={() => navigate('/')}><h1 className="text-2xl">roomie</h1></button> 
                 <img src={loremImage} className="w-16 h-16 rounded-full" onClick={() => {setProfileDropdownHidden((prev) => (!prev))}}></img>
-                {profileDropdownHidden ? null : <ProfileDropdown toggle={toggleProfileDropdown}/>}
+                {profileDropdownHidden ? null : <ProfileDropdown toggle={toggleProfileDropdown} currUser={props.currUser} updateUserInfo = {props.updateUserInfo}/>}
             </header>
         </div>
     )
