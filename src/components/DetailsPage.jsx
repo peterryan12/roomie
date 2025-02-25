@@ -15,7 +15,7 @@ export const DetailsPage = (props) => {
     return (
         <div className='m-5'>
             <h1 className="text-3xl">{curListing.name}</h1>
-            <div className="grid grid-cols-2 gap-10 items-start content-center mt-9 auto-rows-min">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start content-center mt-9 auto-rows-min">
                 <div className='bg-indigo-50 p-5 w-full h-full min-h-64 rounded border flex flex-col gap-4'>
                     <p>
                        {curListing.description}
