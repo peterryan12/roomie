@@ -31,7 +31,7 @@ export const ProfileDropdown = (props) => {
       
                 <nav>
             <ul>
-                <li className="p-1 hover:bg-[rgb(240,240,208)]"><button >Messages</button></li>
+                <li className="p-1 hover:bg-[rgb(240,240,208)]"><button onClick={() => {document.body.classList.toggle('dark-mode');}}>Dark Mode</button></li>
                 <li className="p-1 hover:bg-[rgb(240,240,208)]"><button onClick={() => {
                    props.toggle();
                    navigate('/profile', { state: { currUser: props.currUser} })
