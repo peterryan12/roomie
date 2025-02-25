@@ -17,18 +17,18 @@ export const ProfileOverview = () => {
 
     <div id="user-info" className='flex flex-col items-center mt-8 pb-15'>
        <div className='flex gap-4'> 
-        <div className='h-fit w-100 p-6 border shadow-lg p-3 rounded bg-indigo-50'>
+        <div className='h-fit w-100 p-6 border shadow-lg p-3 rounded bg-indigo-50' id='prof-overview-0'>
             <p>
                {leaser.bio}
             </p>
          </div>
       </div>  
-      <div className='flex flex-col  h-fit w-130 p-6 border shadow-lg p-3 rounded bg-indigo-50 mt-10 gap-3'>
+      <div className='flex flex-col  h-fit w-130 p-6 border shadow-lg p-3 rounded bg-indigo-50 mt-10 gap-3' id='prof-overview-1'>
         <p><u>Hobbies:</u> {leaser.personalInfo.hobbies}</p>
         <p><u>Favorite Fact:</u> {leaser.personalInfo.favoriteFact}</p>
         <p><u>Worst Pet Peeve:</u> {leaser.personalInfo.petPeeve}</p>
     </div>
-    <div className='flex flex-col  h-fit w-130 p-6 border shadow-lg p-3 rounded bg-indigo-50 mt-10 gap-3'>
+    <div className='flex flex-col  h-fit w-130 p-6 border shadow-lg p-3 rounded bg-indigo-50 mt-10 gap-3' id='prof-overview-2'>
         <p><u>Username:</u>{leaser.userName}</p>
         <p><u>Email:</u> {leaser.email}</p>
         <p><u>Status:</u>{leaser.type}: {leaser.status}</p>

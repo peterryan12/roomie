@@ -5,6 +5,28 @@
   text-align: center;
 }
 
+body.dark-mode {
+  background-color: #333333;
+  color: white;
+}
+
+body.dark-mode h1 {
+  color: white;
+}
+
+body.dark-mode #main-header, #grid-cell-1, #grid-cell-2, #listing-card, #info-items-container, #prof-overview-0, #prof-overview-1, #prof-overview-2 {
+  background-color: darkseagreen;
+
+}
+
+
+
+body.dark-mode #prof-dropdown, #listing-dropdown {
+  background-color: burlywood;
+
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;

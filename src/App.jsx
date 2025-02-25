@@ -63,7 +63,7 @@ function App() {
   const [currUser, setCurrUser] = useState(johnDoe);
 
   
-
+  document.body.classList.add('dark-mode');
   return (
     <Router>
       <div className="min-h-1/6 items-center">

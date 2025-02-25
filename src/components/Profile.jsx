@@ -18,7 +18,7 @@ export const Profile = () => {
 
     return <div>
         <div id="meta-container"  className="flex flex-col items-center gap-4">
-            <img src={currUser.profilePic} className='w-24 h-24 rounded-full'></img>
+            <img src={currUser.profilePic} className='w-24 h-24 rounded-full' alt="Current user"></img>
             <div className='flex gap-3 items-center justify-center'>
             <p>{currUser.name}</p>
             <button>{<Pencil size={16} />}</button>
@@ -30,7 +30,7 @@ export const Profile = () => {
            <div className='flex gap-4'>  <textarea className="h-50 w-80 border shadow-lg p-3" placeholder='Update your bio. This is the best way for potential lardlords to get to know you!'>{currUser.bio}</textarea>
            <button className='mt-3'>{<Pencil size={16} />}</button></div>
           
-            <div id="info-items-container" className='flex flex-col items-end border bg-indigo-50 mt-10 p-5 rounded'>
+            <div id="info-items-container" className='flex flex-col items-end border bg-indigo-50 mt-10 p-5 rounded' >
             <InfoItem item={"Username"} value={username} toggle={setUsername}/>
             <InfoItem item={"Email"} value={email} toggle={setEmail}/>
             <InfoItem item={"Status"} value={status} toggle={setStatus}/>

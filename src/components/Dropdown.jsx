@@ -23,7 +23,7 @@ export const Dropdown = (props) => {
         };
       }, [props.toggleDropdown]); // D
 
-    return <div className="bg-[rgb(255,253,208)] absolute rounded left-0  mt-28  w-fit flex flex-col gap-1 p-1 -ml-10 border shadow-lg" ref={dropdownRef}>
+    return <div className="bg-[rgb(255,253,208)] absolute rounded left-0  mt-28  w-fit flex flex-col gap-1 p-1 -ml-10 border shadow-lg" ref={dropdownRef} id="listing-dropdown">
             <input type="text" placeholder="City to search..." className="w-30 border-b-[0.5px]" onChange={(e) => setUserCity(e.target.value)}/>
             {console.log(userCity)}
             <select id="options" name="options" onChange={(e) => {setNumRooms(e.target.value)}}>

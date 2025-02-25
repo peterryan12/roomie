@@ -26,7 +26,7 @@ export const ProfileDropdown = (props) => {
     }, [props.toggle])
 
   
-    return <div className="bg-[rgb(255,253,208)] absolute right-6  mt-73 p-4 rounded border shadow-lg" ref={dropdownRef}> 
+    return <div className="bg-[rgb(255,253,208)] absolute right-6  mt-73 p-4 rounded border shadow-lg" ref={dropdownRef} id="prof-dropdown"> 
             <h1><u>John Cornelius Doe</u></h1>
       
                 <nav>

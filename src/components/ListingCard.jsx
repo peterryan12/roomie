@@ -4,7 +4,7 @@ export const ListingCard = (props) => {
     const navigate = useNavigate();
     return (
         <div 
-            className="grid rounded p-5 grid-cols-[1fr_2fr] mt-5 bg-indigo-50 items-center border-[0.5px] gap-4 cursor-pointer"
+           id="listing-card" className="grid rounded p-5 grid-cols-[1fr_2fr] mt-5 bg-indigo-50 items-center border-[0.5px] gap-4 cursor-pointer"
             onClick={() => navigate('/details', { state: { lister: props.lister, listing: props.listing } })}
         >
             <img 
