@@ -29,6 +29,9 @@ body.dark-mode #prof-overview-2 {
   background-color: darkseagreen;
 }
 
+#spinner {
+  animation: spin 1s linear infinite;
+}
 
 body.dark-mode #prof-dropdown, #listing-dropdown {
   background-color: burlywood;
