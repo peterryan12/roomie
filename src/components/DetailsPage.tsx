@@ -1,11 +1,9 @@
-import carraway from '../assets/carraway.jpg';
-import lorem from '../assets/lorem.png';
-import carraway_2 from '../assets/carraway_2.jpg';
+
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 
-export const DetailsPage = (props) => {
+export const DetailsPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const curLister = location.state?.lister;
@@ -40,7 +38,7 @@ export const DetailsPage = (props) => {
                     <p>Monthly Rate: ${curListing.price}</p>
                     <p>Rules: {curListing.rules}</p>
                   <div className='flex justify-around'>
-                  {curListing.images?.map((imgSrc) => (
+                  {curListing.images?.map((imgSrc: string) => (
                             <img src={imgSrc} className="w-36 h-36 rounded self-start object-cover border shadow-lg" alt="Current listing" />
                         ))}
                   

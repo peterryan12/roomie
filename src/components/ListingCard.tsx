@@ -1,6 +1,41 @@
 import { useNavigate } from 'react-router-dom';
 
-export const ListingCard = (props) => {
+interface PersonalInfo {
+    hobbies: string,
+    favoriteFact: string,
+    petPeeve: string
+  }
+  
+
+interface User {
+    name: string,
+    profilePic: string,
+    rating: number,
+    age: number,
+    type: string,
+    bio: string,
+    personalInfo: PersonalInfo,
+    userName: string,
+    email: string,
+    status: string
+  }
+
+interface House {
+    name: string,
+    preview: string,
+    price: number,
+    description: string,
+    images: string[],
+    lister: User,
+    rules: string
+}
+
+interface IListingCardProps {
+    listing: House,
+    lister: User
+}
+
+export const ListingCard = (props: IListingCardProps) => {
     const navigate = useNavigate();
     return (
         <div 
