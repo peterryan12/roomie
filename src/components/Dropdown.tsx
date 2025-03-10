@@ -1,15 +1,21 @@
 import { useState, useEffect, useRef } from "react"
 
-export const Dropdown = (props) => {
+interface IDropdownProps {
+  toggleRooms: (rooms: string) => void
+  toggleCity: (city: string) => void
+  toggleDropdown: () => void
+}
+
+export const Dropdown = (props: IDropdownProps) => {
 
     const [userCity, setUserCity] = useState("Los Osos");
-    const [numRooms, setNumRooms] = useState(0);
-    const dropdownRef = useRef(null);
+    const [numRooms, setNumRooms] = useState("");
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         // Function to handle outside click
-        const handleClickOutside = (event) => {
-          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+          if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
             props.toggleDropdown() // Close dropdown if clicked outside
           }
         };
@@ -25,7 +31,7 @@ export const Dropdown = (props) => {
 
     return <div className="bg-[rgb(255,253,208)] absolute rounded left-0  mt-28  w-fit flex flex-col gap-1 p-1 -ml-10 border shadow-lg" ref={dropdownRef} id="listing-dropdown">
             <input type="text" placeholder="City to search..." className="w-30 border-b-[0.5px]" onChange={(e) => setUserCity(e.target.value)}/>
-            {console.log(userCity)}
+         
             <select id="options" name="options" onChange={(e) => {setNumRooms(e.target.value)}}>
                 <option value="1">1 room</option>
                 <option value="2">2 rooms</option>

@@ -59,7 +59,7 @@ const carrawayHouse = {
 
 function App() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [numRooms, setNumRooms] = useState(3);
+  const [numRooms, setNumRooms] = useState("1");
   const [currUser, setCurrUser] = useState(johnDoe);
 
   
@@ -79,7 +79,7 @@ function App() {
                     roomCount={numRooms}
                     dropdownVisible={dropdownVisible}
                     toggleDropdown={() => setDropdownVisible(!dropdownVisible)}
-                    toggleRooms={(rooms) => setNumRooms(rooms)}
+                    toggleRooms={(rooms: string) => setNumRooms(rooms)}
                   />
             
                   <ListingCard listing={carrawayHouse} lister={janeDoe} />
