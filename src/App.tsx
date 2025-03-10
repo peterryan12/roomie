@@ -109,7 +109,7 @@ function App() {
             />
            
             <Route path="/profile" element={<Profile />} />
-            <Route path="/details" element={<DetailsPage listingName={"Carraway House"} leaser={janeDoe}/>} />
+            <Route path="/details" element={<DetailsPage />} />
             <Route path="/overview" element={<ProfileOverview />} />
 
           </Routes>
