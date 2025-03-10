@@ -1,17 +1,42 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom"
 
+interface PersonalInfo {
+  hobbies: string,
+  favoriteFact: string,
+  petPeeve: string
+}
 
-export const ProfileDropdown = (props) => {
+ interface User {
+  name: string,
+  profilePic: string,
+  rating: number,
+  age: number,
+  type: string,
+  bio: string,
+  personalInfo: PersonalInfo,
+  userName: string,
+  email: string,
+  status: string
+}
+
+interface IProfileDropdownProps {
+  toggle: () => void,
+  currUser: User,
+  updateUserInfo: React.Dispatch<React.SetStateAction<User>>;
+
+}
+
+export const ProfileDropdown = (props: IProfileDropdownProps) => {
 
     const navigate = useNavigate();
-    const dropdownRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
    
 
    
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
               props.toggle() // Close dropdown if clicked outside
             }
           };

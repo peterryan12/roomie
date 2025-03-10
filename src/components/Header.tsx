@@ -2,9 +2,33 @@ import loremImage from '../assets/lorem.png';
 import { ProfileDropdown } from './ProfileDropdown';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+interface PersonalInfo {
+    hobbies: string,
+    favoriteFact: string,
+    petPeeve: string
+  }
+  
+   interface User {
+    name: string,
+    profilePic: string,
+    rating: number,
+    age: number,
+    type: string,
+    bio: string,
+    personalInfo: PersonalInfo,
+    userName: string,
+    email: string,
+    status: string
+  }
 
 
-export const Header = (props) => {
+interface IHeaderProps {
+  currUser: User,
+  updateUserInfo: React.Dispatch<React.SetStateAction<User>>;
+}
+
+
+export const Header = (props: IHeaderProps) => {
     const navigate = useNavigate();
     const [profileDropdownHidden, setProfileDropdownHidden] = useState(true);
     const toggleProfileDropdown = () => {

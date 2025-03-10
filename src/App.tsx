@@ -12,6 +12,25 @@ import janeDoePic from './assets/janeDoe.jpeg';
 import carraway from './assets/carraway.jpg';
 import carraway2 from './assets/carraway_2.jpg';
 
+ interface PersonalInfo {
+  hobbies: string,
+  favoriteFact: string,
+  petPeeve: string
+}
+
+ interface User {
+  name: string,
+  profilePic: string,
+  rating: number,
+  age: number,
+  type: string,
+  bio: string,
+  personalInfo: PersonalInfo,
+  userName: string,
+  email: string,
+  status: string
+}
+
 const johnDoe = {
   name: "John Cornelius Doe",
   profilePic: loremImage,
@@ -24,7 +43,7 @@ const johnDoe = {
     favoriteFact: "There were Woolie Mammoths on earth when the Pyramids were built",
     petPeeve: "When people walk really fast behind you."
   },
-  username: "jcdoeboi",
+  userName: "jcdoeboi",
   email: "jcdoe@gmail.com",
   status: "Looking for short to medium term renter."
 }
@@ -40,7 +59,7 @@ const janeDoe = {
     favoriteFact: "The Romans are to us what the Egyptians were to the Romans.",
     petPeeve: "When people take up too much of the sidewalk."
   },
-  username: "jcdoegorl",
+  userName: "jcdoegorl",
   email: "jcdoe@yahoo.com",
   status: "Looking for medium to long term renter."
 }
