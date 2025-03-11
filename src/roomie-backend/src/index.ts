@@ -2,8 +2,8 @@ import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import path from "path";
 import { MongoClient } from "mongodb";
-import { ImageProvider } from "./ImageProvider";
-import { registerImageRoutes } from "./routes/images";
+import { RoomieProvider } from "./RoomieProvider";
+import { registerUserRoutes } from "./routes/users";
 
 
 dotenv.config(); // Read the .env file in the current working directory, and load values into process.env.
@@ -42,7 +42,7 @@ const setUpRoutes = async () => {
     });
 
     if (mongoClient){
-        registerImageRoutes(app, mongoClient);
+        registerUserRoutes(app, mongoClient);
     }
     else {
         console.log("Mongo client not setup properly.")
