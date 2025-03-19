@@ -37,6 +37,8 @@ interface IListingCardProps {
 
 export const ListingCard = (props: IListingCardProps) => {
     const navigate = useNavigate();
+    console.log("Profile pic");
+    console.log(props.lister.profilePic);
     return (
         <div 
            id="listing-card" className="grid rounded p-5 grid-cols-[1fr_2fr] mt-5 bg-indigo-50 items-center border-[0.5px] gap-4 cursor-pointer"

@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { MongoClient } from "mongodb";
 import { RoomieProvider } from "../RoomieProvider";
+import { verifyAuthToken } from "./auth";
 
 export function registerUserRoutes(app: express.Application, mongoClient: MongoClient) {
     // User route
@@ -26,6 +27,27 @@ export function registerUserRoutes(app: express.Application, mongoClient: MongoC
             res.status(500).send("Internal Server Error");
         }
     });
+
+    app.get("/api/me", verifyAuthToken, async (req: Request, res: Response): Promise<void>  => {
+        try {
+          
+            const provider = new RoomieProvider(mongoClient);
+            const username = res.locals.token.username; // Extract username from decoded JWT
+    
+            const user = await provider.getUserByUsername(username); // Fetch user from DB
+            if (!user) {
+                res.status(404).json({ message: "User not found" })
+                return ;
+            }
+            res.json(user); // Send the user as JSON
+        } catch (error) {
+            console.error("Error fetching current user:", error);
+            res.status(500).send("Internal Server Error");
+            return;
+        }
+    });
+    
+    
 
     // Property route (this was inside the users route block)
     app.get("/api/properties", async (req: Request, res: Response) => {

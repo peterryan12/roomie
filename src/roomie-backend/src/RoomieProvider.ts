@@ -48,6 +48,17 @@ export class RoomieProvider {
     
         return await collection.find({}).toArray(); // Fetch all users
     }
+
+    async getUserByUsername(username: string): Promise<UserSchema | null> {
+      if (!this.usersCollection) {
+          throw new Error("Missing collection name from environment variables");
+      }
+  
+      const collection = this.mongoClient.db().collection<UserSchema>(this.usersCollection);  
+      console.log(username);
+      return await collection.findOne({ userName: username });
+  }
+
     async getAllHouses(): Promise<Property[]> {
         if (!this.housesCollection) {
             throw new Error("Missing collection names from environment variables");

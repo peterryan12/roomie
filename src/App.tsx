@@ -3,7 +3,7 @@ import { FilterHeading } from './components/FilterHeading';
 import { ProfileOverview } from './components/ProfileOverview';
 import { Header } from './components/Header';
 import { ListingCard } from './components/ListingCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Profile } from './components/Profile';
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import { DetailsPage } from './components/DetailsPage';
@@ -11,6 +11,11 @@ import loremImage from './assets/lorem.png';
 import janeDoePic from './assets/janeDoe.jpeg';
 import carraway from './assets/carraway.jpg';
 import carraway2 from './assets/carraway_2.jpg';
+import { UsernamePasswordForm } from './auth/UsernamePasswordForm';
+import { RegisterPage } from './auth/RegisterPage';
+import { LoginPage } from './auth/LoginPage';
+import { ProtectedRoute } from './auth/ProtectedRoute';
+
 
  interface PersonalInfo {
   hobbies: string,
@@ -74,45 +79,120 @@ const carrawayHouse = {
   rules: "No Smoking, No Pets, Quiet Hours 11P.M-7A.M"
 }
 
+function mapToUser(json: any): User {
+  return {
+    name: json.name || "",  // Fallback to empty string if missing
+    profilePic: json.profilePic || "",
+    rating: json.rating || 0,
+    age: json.age || 0,
+    type: json.type || "",
+    bio: json.bio || "",
+    personalInfo: {
+      hobbies: json.personalInfo?.hobbies || "",
+      favoriteFact: json.personalInfo?.favoriteFact || "",
+      petPeeve: json.personalInfo?.petPeeve || ""
+    },
+    userName: json.userName || "",
+    email: json.email || "",
+    status: json.status || ""
+  };
+}
+
+
 
 
 function App() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [numRooms, setNumRooms] = useState("1");
+  const [user, setUser] = useState<User | null>(null);
   const [currUser, setCurrUser] = useState(johnDoe);
+  const [authToken, setAuthToken] = useState("");
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      if (!authToken) return; // Prevent fetching if no auth token
+  
+      try {
+        const response = await fetch("/api/me", {
+          headers: { Authorization: `Bearer ${authToken}` },
+        });
+  
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+        console.log("Decoded");
+  
+        const data = await response.json();
+        console.log("Fetched Users:", data);
+        const updatedUser = mapToUser(data);
+        setUser(updatedUser);
+        setCurrUser(updatedUser);
+       
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+  
+    fetchUsers();
+  }, [authToken]);
+  
 
   
   //document.body.classList.add('dark-mode');
   return (
     <Router>
       <div className="min-h-1/6 items-center">
-        <Header currUser={currUser} updateUserInfo = {setCurrUser}/>
+        <Header currUser={user!} updateUserInfo = {setCurrUser}/>
         <div className="pt-24 p-5">
-          <Routes>
-           
-            <Route 
-              path="/" 
-              element={
-                <>
-                  <FilterHeading
-                    roomCount={numRooms}
-                    dropdownVisible={dropdownVisible}
-                    toggleDropdown={() => setDropdownVisible(!dropdownVisible)}
-                    toggleRooms={(rooms: string) => setNumRooms(rooms)}
-                  />
-            
-                  <ListingCard listing={carrawayHouse} lister={janeDoe} />
-                  <ListingCard listing={carrawayHouse} lister ={johnDoe}/>
-                  <ListingCard listing={carrawayHouse} lister={janeDoe}/>
-                </>
-              } 
-            />
-           
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/details" element={<DetailsPage />} />
-            <Route path="/overview" element={<ProfileOverview />} />
+        <Routes>
+          
+            <Route path="/register" element={<RegisterPage setToken={setAuthToken}/>} />
+            <Route path="/login" element={<LoginPage setToken={setAuthToken}/>} />
 
-          </Routes>
+     
+            <Route 
+                path="/" 
+                element={
+                    <ProtectedRoute authToken={authToken}>
+                        <>
+                            <FilterHeading
+                                roomCount={numRooms}
+                                dropdownVisible={dropdownVisible}
+                                toggleDropdown={() => setDropdownVisible(!dropdownVisible)}
+                                toggleRooms={(rooms: string) => setNumRooms(rooms)}
+                            />
+                            <ListingCard listing={carrawayHouse} lister={janeDoe} />
+                            <ListingCard listing={carrawayHouse} lister={currUser} />
+                            <ListingCard listing={carrawayHouse} lister={janeDoe} />
+                        </>
+                    </ProtectedRoute>
+                } 
+            />
+            <Route 
+                path="/profile" 
+                element={
+                    <ProtectedRoute authToken={authToken}>
+                        <Profile />
+                    </ProtectedRoute>
+                } 
+            />
+            <Route 
+                path="/details" 
+                element={
+                    <ProtectedRoute authToken={authToken}>
+                        <DetailsPage />
+                    </ProtectedRoute>
+                } 
+            />
+            <Route 
+                path="/overview" 
+                element={
+                    <ProtectedRoute authToken={authToken}>
+                        <ProfileOverview />
+                    </ProtectedRoute>
+                } 
+            />
+        </Routes>
         </div>
       </div>
     </Router>

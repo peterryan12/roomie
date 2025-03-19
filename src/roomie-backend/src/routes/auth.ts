@@ -27,6 +27,7 @@ export function verifyAuthToken(
         jwt.verify(token, signatureKey, (error, decoded) => {
             if (decoded) {
                 res.locals.token = decoded;
+              
                 next();
             } else {
                 res.status(403).end();
