@@ -36,6 +36,16 @@ import { ProtectedRoute } from './auth/ProtectedRoute';
   status: string
 }
 
+interface House {
+  name: string,
+  preview: string,
+  price: number,
+  description: string,
+  images: string[],
+  lister: User,
+  rules: string
+}
+
 const johnDoe = {
   name: "John Cornelius Doe",
   profilePic: loremImage,
@@ -98,6 +108,19 @@ function mapToUser(json: any): User {
   };
 }
 
+function mapToProperties(jsonArray: any[]): House[] {
+  return jsonArray.map(json => ({
+    name: json.name || "",  // Fallback to empty string if missing
+    preview: json.preview || "",  // Fallback to empty string if missing
+    price: json.price || 0,  // Fallback to 0 if missing
+    description: json.description || "",  // Fallback to empty string if missing
+    images: json.images || [],  // Fallback to an empty array if missing
+    lister: mapToUser(json.lister),  // Reuse mapToUser for lister
+    rules: json.rules || ""  // Fallback to empty string if missing
+  }));
+}
+
+
 
 
 
@@ -105,11 +128,12 @@ function App() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [numRooms, setNumRooms] = useState("1");
   const [user, setUser] = useState<User | null>(null);
+  const [properties, setProperties] = useState<House[] | null>(null);
   const [currUser, setCurrUser] = useState(johnDoe);
   const [authToken, setAuthToken] = useState("");
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchCurrUser = async () => {
       if (!authToken) return; // Prevent fetching if no auth token
   
       try {
@@ -132,8 +156,34 @@ function App() {
         console.error("Error fetching users:", error);
       }
     };
+
+    const fetchProperties = async () => {
+      if (!authToken) return; // Prevent fetching if no auth token
   
-    fetchUsers();
+      try {
+        const response = await fetch("/api/properties", {
+          headers: { Authorization: `Bearer ${authToken}` },
+        });
+  
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+        console.log("Decoded");
+  
+        const data = await response.json();
+        console.log("Fetched Users:", data);
+        const updatedProperties = mapToProperties(data);
+        setProperties(updatedProperties);
+      
+       
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+
+    fetchCurrUser();
+    fetchProperties();
   }, [authToken]);
   
 
@@ -161,9 +211,12 @@ function App() {
                                 toggleDropdown={() => setDropdownVisible(!dropdownVisible)}
                                 toggleRooms={(rooms: string) => setNumRooms(rooms)}
                             />
-                            <ListingCard listing={carrawayHouse} lister={janeDoe} />
+                           {properties?.map((property) => {
+          return <ListingCard listing={property} lister={property.lister} />;
+        })}
+                            {/* <ListingCard listing={properties ? properties[0] : carrawayHouse} lister={janeDoe} />
                             <ListingCard listing={carrawayHouse} lister={currUser} />
-                            <ListingCard listing={carrawayHouse} lister={janeDoe} />
+                            <ListingCard listing={carrawayHouse} lister={janeDoe} /> */}
                         </>
                     </ProtectedRoute>
                 } 
