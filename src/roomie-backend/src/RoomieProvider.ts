@@ -59,6 +59,22 @@ export class RoomieProvider {
       return await collection.findOne({ userName: username });
   }
 
+  async updateUserByUsername(username: string, updates: Partial<UserSchema>): Promise<UserSchema | null> {
+    if (!this.usersCollection) {
+        throw new Error("Missing collection name from environment variables");
+    }
+
+    const collection = this.mongoClient.db().collection<UserSchema>(this.usersCollection);
+  
+    const result = await collection.findOneAndUpdate(
+        { "userName": username }, 
+        { $set: updates },
+        { returnDocument: "after" }
+    );
+
+    return result; // Returns the updated user or null if not found
+}
+
     async getAllHouses(): Promise<Property[]> {
         if (!this.housesCollection) {
             throw new Error("Missing collection names from environment variables");

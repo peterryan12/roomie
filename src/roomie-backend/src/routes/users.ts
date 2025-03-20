@@ -47,6 +47,33 @@ export function registerUserRoutes(app: express.Application, mongoClient: MongoC
         }
     });
     
+    app.patch("/api/users/:username", async (req: Request, res: Response) => {
+        try {
+            console.log("In the patch enpoint");
+            console.log(req.params);
+            const { username } = req.params; 
+            const updates = req.body; 
+            
+    
+            if (!username || !updates || Object.keys(updates).length === 0) {
+                res.status(400).json({ error: "Invalid request: No updates provided." });
+                return;
+            }
+    
+            const provider = new RoomieProvider(mongoClient);
+            const updatedUser = await provider.updateUserByUsername(username, updates);
+    
+            if (!updatedUser) {
+                 res.status(404).json({ error: "User not found." });
+                 return;
+            }
+    
+            res.json({ message: "User updated successfully", user: updatedUser });
+        } catch (error) {
+            console.error("Error updating user:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    });
     
 
     // Property route (this was inside the users route block)

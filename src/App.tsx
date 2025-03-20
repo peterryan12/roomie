@@ -23,7 +23,7 @@ import { ProtectedRoute } from './auth/ProtectedRoute';
   petPeeve: string
 }
 
- interface User {
+ export interface User {
   name: string,
   profilePic: string,
   rating: number,
@@ -62,32 +62,9 @@ const johnDoe = {
   email: "jcdoe@gmail.com",
   status: "Looking for short to medium term renter."
 }
-const janeDoe = {
-  name: "Jane Doe",
-  profilePic: janeDoePic,
-  age: 38,
-  rating: 4.98,
-  type: "leaser",
-  bio: "'Life is a shipwreck, but we must not forget to sing in the lifeboats.' - Voltaire   I'm a Santa Barbara local looking for a roomie to share my love for music and taquitos. I also love cats, so it'd be 'prr-fect' if you've got a cat.",
-  personalInfo: {
-    hobbies: "Krav Maga, Swimming, Oil Painting",
-    favoriteFact: "The Romans are to us what the Egyptians were to the Romans.",
-    petPeeve: "When people take up too much of the sidewalk."
-  },
-  userName: "jcdoegorl",
-  email: "jcdoe@yahoo.com",
-  status: "Looking for medium to long term renter."
-}
 
-const carrawayHouse = {
-  name: "Carraway House",
-  preview: "A cardboard bungalow at eighty a month.",
-  price: 80,
-  description: "This cardboard bungalow may be somewhat of an eyesore, but it posts gorgeous views of the Long Island Sound, as well as the consoling proximity of millionaires.",
-  images: [carraway, carraway2],
-  lister: janeDoe,
-  rules: "No Smoking, No Pets, Quiet Hours 11P.M-7A.M"
-}
+
+
 
 function mapToUser(json: any): User {
   return {
@@ -214,9 +191,7 @@ function App() {
                            {properties?.map((property) => {
           return <ListingCard listing={property} lister={property.lister} />;
         })}
-                            {/* <ListingCard listing={properties ? properties[0] : carrawayHouse} lister={janeDoe} />
-                            <ListingCard listing={carrawayHouse} lister={currUser} />
-                            <ListingCard listing={carrawayHouse} lister={janeDoe} /> */}
+                           
                         </>
                     </ProtectedRoute>
                 } 
@@ -225,7 +200,7 @@ function App() {
                 path="/profile" 
                 element={
                     <ProtectedRoute authToken={authToken}>
-                        <Profile />
+                        <Profile authToken={authToken} currUser={currUser}/>
                     </ProtectedRoute>
                 } 
             />

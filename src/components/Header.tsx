@@ -39,6 +39,7 @@ export const Header = (props: IHeaderProps) => {
 
     // }
     return (
+      props.currUser &&
         <div className="bg-indigo-50 fixed top-0 left-0 right-0 p-5 z-10 border-b" id="main-header">
             <header className="flex justify-between items-center">
                <button onClick={() => navigate('/')}><h1 className="text-2xl">roomie</h1></button> 
