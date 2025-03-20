@@ -65,7 +65,8 @@ export class RoomieProvider {
     }
 
     const collection = this.mongoClient.db().collection<UserSchema>(this.usersCollection);
-  
+    
+
     const result = await collection.findOneAndUpdate(
         { "userName": username }, 
         { $set: updates },
@@ -85,15 +86,5 @@ export class RoomieProvider {
         return await collection.find({}).toArray(); // Fetch all users
     }
 
-    // async updateImageName(imageId: string, newName: string): Promise<number> {
-        
-    //     if (!this.imagesCollection || !this.usersCollection) {
-    //         throw new Error("Missing collection names from environment variables");
-    //     }
-    //     const collection = this.mongoClient.db().collection<ImageSchema>(this.imagesCollection);
-    //     const result = await collection.updateOne({_id: imageId}, {$set: {name: newName}})
-    //     return result.matchedCount;
-        
-    // }
     
 }
